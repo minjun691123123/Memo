@@ -1,0 +1,20 @@
+PODS:
+  - ExytePopupView (2.0.1)
+  - Toast-Swift (5.0.1)
+
+DEPENDENCIES:
+  - ExytePopupView
+  - Toast-Swift (~> 5.0.1)
+
+SPEC REPOS:
+  trunk:
+    - ExytePopupView
+    - Toast-Swift
+
+SPEC CHECKSUMS:
+  ExytePopupView: bb465c950090178eda383b6333f453d943df1390
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+
+PODFILE CHECKSUM: 29a6cc87ab6587986839338c80834a589c0387d8
+
+COCOAPODS: 1.11.3
