@@ -14,9 +14,7 @@
 		8A38892D2995CD54001C9AF7 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38892C2995CD54001C9AF7 /* MemoTests.swift */; };
 		8A3889372995CD54001C9AF7 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3889362995CD54001C9AF7 /* MemoUITests.swift */; };
 		8A3889392995CD54001C9AF7 /* MemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3889382995CD54001C9AF7 /* MemoUITestsLaunchTests.swift */; };
-		8A5C637829A32B4C006A1ABE /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8A5C637729A32B4C006A1ABE /* MyParticle.sks */; };
 		8A675D0029A47C4700FD9B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A38891F2995CD54001C9AF7 /* Assets.xcassets */; };
-		8AC1E24429A4742800AE68EB /* garvegeFIle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1E24329A4742800AE68EB /* garvegeFIle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,9 +46,7 @@
 		8A3889322995CD54001C9AF7 /* MemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A3889362995CD54001C9AF7 /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		8A3889382995CD54001C9AF7 /* MemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8A5C637729A32B4C006A1ABE /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
-		8A6E2ACA299661FA00518FE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8AC1E24329A4742800AE68EB /* garvegeFIle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = garvegeFIle.swift; sourceTree = "<group>"; };
+		8ACCD14729B0E91800987587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA5E75BE308560FA2C4403CF /* Pods_Memo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Memo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D35FA38F43C477C719640BE0 /* Pods-Memo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memo.debug.xcconfig"; path = "Target Support Files/Pods-Memo/Pods-Memo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,13 +119,11 @@
 		8A38891A2995CD52001C9AF7 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
-				8A6E2ACA299661FA00518FE4 /* Info.plist */,
+				8ACCD14729B0E91800987587 /* Info.plist */,
 				8A38891B2995CD52001C9AF7 /* MemoApp.swift */,
 				8A38891D2995CD52001C9AF7 /* ContentView.swift */,
 				8A38891F2995CD54001C9AF7 /* Assets.xcassets */,
 				8A3889212995CD54001C9AF7 /* Preview Content */,
-				8A5C637729A32B4C006A1ABE /* MyParticle.sks */,
-				8AC1E24329A4742800AE68EB /* garvegeFIle.swift */,
 			);
 			path = Memo;
 			sourceTree = "<group>";
@@ -267,7 +261,6 @@
 			files = (
 				8A3889232995CD54001C9AF7 /* Preview Assets.xcassets in Resources */,
 				8A675D0029A47C4700FD9B49 /* Assets.xcassets in Resources */,
-				8A5C637829A32B4C006A1ABE /* MyParticle.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +327,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AC1E24429A4742800AE68EB /* garvegeFIle.swift in Sources */,
 				8A38891E2995CD52001C9AF7 /* ContentView.swift in Sources */,
 				8A38891C2995CD52001C9AF7 /* MemoApp.swift in Sources */,
 			);
@@ -496,7 +488,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Memo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
@@ -512,7 +504,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -532,7 +524,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Memo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
@@ -548,7 +540,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

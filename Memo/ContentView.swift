@@ -14,8 +14,11 @@ import Toast_Swift
 import ExtensionKit
 
 
-
-
+struct todoList: Codable{
+  
+ var content: String
+   
+}
 
 
 //불러올 색상
@@ -27,19 +30,16 @@ struct CustomColor {
 
 struct ContentView: View {
     
+  
+
     
+    
+    @State private var theId = 0
 
     @State var swipeDown: Bool
     
     
-    //trash 정보에 있을 녀석들
-    //AppStorage를 쓴다 앱이 종료되도 유지될
-    @AppStorage("garbage0")    var garbage0 : String = ""
-    @AppStorage("garbage1")    var garbage1 : String = ""
-    @AppStorage("garbage2")    var garbage2 : String = ""
-    @AppStorage("garbage3")    var garbage3 : String = ""
-    @AppStorage("garbage4")    var garbage4 : String = ""
-    
+   
     @State private var trashPopup: Bool = false
     
     //Image Change를 위한 bool 변수
@@ -75,9 +75,33 @@ struct ContentView: View {
     //textFiled에서 적힌 text를 담아두는 변수
     @State private var text: String = ""
     
-   
+    @AppStorage("garbage0")    var garbage0 : String = ""
+    @AppStorage("garbage1")    var garbage1 : String = ""
+    @AppStorage("garbage2")    var garbage2 : String = ""
+    @AppStorage("garbage3")    var garbage3 : String = ""
+    @AppStorage("garbage4")    var garbage4 : String = ""
+    @AppStorage("garbage5")    var garbage5 : String = ""
+    @AppStorage("garbage6")    var garbage6 : String = ""
+    @AppStorage("garbage7")    var garbage7 : String = ""
+    @AppStorage("garbage8")    var garbage8 : String = ""
+    @AppStorage("garbage9")    var garbage9 : String = ""
     
+    
+    let encoder = JSONEncoder()
+
+    let decoder = JSONDecoder()
   
+ 
+    
+
+  /*  //todoList(Trash)에 text 추가
+    func appendTodoList() {
+        let addList = todoList(content: text)
+
+        todoLists.append(addList)
+        text = ""
+    }
+   */
    
     //text를 복사함
     func copyToPasteboard() {
@@ -126,8 +150,18 @@ struct ContentView: View {
         }
     }
     
-    
-
+    //todoLists에 있는 정보 불러오기
+   /* func dataLoad(){
+        if let data = UserDefaults.standard.value(forKey:"todoLists") as? Data {
+            let todoListscopy = try? PropertyListDecoder().decode(Array<todoList>.self, from: data)
+            self.todoLists = todoListscopy!
+            
+            
+            
+        }
+        
+    }
+    */
     
     
     //팝업 메뉴 함수
@@ -141,7 +175,6 @@ struct ContentView: View {
                
                 HStack(){
                   
-                        
                         Spacer()
                         
                         
@@ -149,10 +182,10 @@ struct ContentView: View {
                         Button(action:{
                             
                             trashPopup = true
+                         
                            
-                            
                         }){
-                            Image(systemName: !garbage0.isEmpty ? "trash.fill" :"trash")
+                            Image(systemName: !garbage0.isEmpty  ? "trash.fill" :"trash")
                         }.font(.system(size:30))
                          
                     
@@ -255,13 +288,8 @@ struct ContentView: View {
                                 print("down")
                                   //글자 저장
                                   UserDefaults.standard.set(text, forKey: "textData" )
+                              
                                   
-                                  UserDefaults.standard.set(garbage0, forKey: "garbage0")
-                                  UserDefaults.standard.set(garbage1, forKey: "garbage1")
-                                  UserDefaults.standard.set(garbage2, forKey: "garbage2")
-                                  UserDefaults.standard.set(garbage3, forKey: "garbage3")
-                                  UserDefaults.standard.set(garbage4, forKey: "garbage4")
-                               
                                   
                                   
                                   //팝업 종료
@@ -317,8 +345,10 @@ struct ContentView: View {
                                 buttons: [
                                     .cancel(),
                                     .destructive(Text("Yes"),action: {
-                                      //변수에 내용물 저장
-                              
+                                        
+                                        //변수에 내용물 저장
+                                        
+                                        
                                         if garbage0.isEmpty{
                                             garbage0 = text
                                         }
@@ -333,19 +363,46 @@ struct ContentView: View {
                                         }
                                         else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && garbage4.isEmpty{
                                             garbage4 = text
-                                           
+                                        }
+                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && garbage5.isEmpty{
+                                            garbage5 = text
+                                        }
+                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && garbage6.isEmpty{
+                                            garbage6 = text
+                                        }
+                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && garbage7.isEmpty{
+                                            garbage7 = text
+                                        }
+                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && garbage8.isEmpty{
+                                            garbage8 = text
+                                        }
+                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && !garbage8.isEmpty && garbage9.isEmpty{
+                                            
+                                            garbage0 = ""
                                             garbage0 = garbage1
                                             garbage1 = garbage2
                                             garbage2 = garbage3
                                             garbage3 = garbage4
-                                            garbage4 = ""
-                                        }
-                                          
+                                            garbage4 = garbage5
+                                            garbage5 = garbage6
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = text
                                             
+                                            
+                                            
+                                        }
                                         
-                                       
+                                        
+                                        
+                                        
+                                        
                                         text=""
                                     }
+                                        
+                                       
+                                       
+                                    
                                     
                                     ),
                                     .default(Text("No"))
@@ -362,12 +419,6 @@ struct ContentView: View {
                         
                         //글자 저장
                         UserDefaults.standard.set(text, forKey: "textData" )
-                        
-                        UserDefaults.standard.set(garbage0, forKey: "garbage0" )
-                        UserDefaults.standard.set(garbage1, forKey: "garbage1" )
-                        UserDefaults.standard.set(garbage2, forKey: "garbage2" )
-                        UserDefaults.standard.set(garbage3, forKey: "garbage3" )
-                        UserDefaults.standard.set(garbage4, forKey: "garbage4" )
                         
                         
                         
@@ -448,80 +499,199 @@ struct ContentView: View {
     
     func createTrashPopup() -> some View {
         
+        GeometryReader() { geometry in
             VStack(spacing: 10) {
                 
                 
-                if garbage0.isEmpty{
-                    Spacer()
-                    Text("Nothing")
-                        .font(.system(size: 50))
-                        .fontWeight(.bold)
-                }else {
-                    Spacer()
-                    Text("Trash")
-                        .font(.system(size: 40))
-                        .fontWeight(.bold)
+                
                     
-                    List{
+                
+                if garbage0.isEmpty {
                         
-                        Text(garbage0)
+                        Spacer()
+                    
+                        Text("Nothing").fontWeight(.bold)
+                            .font(.system(size:30))
+                        Spacer()
                         
-                            .foregroundColor(CustomColor.basicBlue)
-                            .onTapGesture {
-                                text = garbage0
-                                trashPopup = false
+                    }else{
+                        Text("Trash")
+                            .font(.system(size:30))
+                     
+                       
+                            List {
+                       
+                          
                                 
+                                Text(garbage0)
+                                                        
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage0
+                                            trashPopup = false
+                                        }
+                            
+                                           
+                                
+                         
+                                    
+                                    Text(garbage1)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage1
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                   
+                                    
+                               
+                                    
+                                    Text(garbage2)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage2
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                   
+                                
+                               
+                                    Text(garbage3)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage3
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                   
+                                
+                            
+                                    
+                                    Text(garbage4)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage4
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                 
+                                    
+                                    Text(garbage5)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage5
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                   
+                                    
+                                    Text(garbage6)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage6
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                   
+                                    
+                                    Text(garbage7)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage7
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                   
+                                
+                           
+                                    
+                                    Text(garbage8)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage8
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                   
+                               
+                                    
+                                    Text(garbage9)
+                                                            
+                                                                .foregroundColor(CustomColor.basicBlue)
+                                                                .onTapGesture {
+                                                                    text = garbage9
+                                                                    trashPopup = false
+                                                                    
+                                                                }
+                                  
+                                   
                             }
-                        Text(garbage1)
-                            .foregroundColor(CustomColor.basicBlue)
-                            .onTapGesture {
-                                text = garbage1
-                                trashPopup = false
-                            }
-                        Text(garbage2)
-                            .foregroundColor(CustomColor.basicBlue)
-                            .onTapGesture {
-                                text = garbage2
-                                trashPopup = false
-                            }
-                        Text(garbage3)
-                            .foregroundColor(CustomColor.basicBlue)
-                            .onTapGesture {
-                                text = garbage3
-                                trashPopup = false
-                            }
-                        Text(garbage4)
-
-                            .foregroundColor(CustomColor.basicBlue)
-                            .onTapGesture {
-                                text = garbage4
-                                trashPopup = false
-                            }
-                    }//list
-                    Spacer()
-                    Text("Ok")
-                        .font(.system(size:30))
+                    }
+                
+                    
+               
+                    HStack{
+                        Button("OK") {
+                            // 실행할 코드
+                            trashPopup = false
+                        }
+                        
+                        .font(.system(.largeTitle))
+                        .frame(width: geometry.size.width / 2, height: geometry.size.height / 9)
                         .fontWeight(.bold)
                         .foregroundColor(CustomColor.basicBlue)
                         .onTapGesture {
                             trashPopup = false
                         }
+                       
+                        Button(action: {
+                            
+                            garbage0 = ""
+                            garbage1 = ""
+                            garbage2 = ""
+                            garbage3 = ""
+                            garbage4 = ""
+                            garbage5 = ""
+                            garbage6 = ""
+                            garbage7 = ""
+                            garbage8 = ""
+                            garbage9 = ""
+                            trashPopup = false
+                            
+                        }, label: {
+                            Text("All Delete")
+                                .frame(width: geometry.size.width / 2, height: geometry.size.height / 9)
+                                .foregroundColor(Color.white)
+                                .fontWeight(.bold)
+                                .font(.system(.largeTitle))
+                                .background(CustomColor.basicBlue)
+                                
+                        })
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
                     
                     
                 }
-              
-                
-                
-                
-                
-                 Spacer()
              
                
                    
                        
                 
-                Spacer()
-                    .frame(height: 10)
+               
+                  
                     }
             //        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
                         .padding(.horizontal, 10)
@@ -547,7 +717,50 @@ struct ContentView: View {
             
             
         }//ZStack
-       
+        //휴지통 팝업
+        .popup(isPresented: $trashPopup) {
+           
+         createTrashPopup()
+           
+           
+           
+       } customize: {
+           
+           $0
+               .autohideIn(1000)
+               .type(.toast)
+               .position(.bottom)
+               .animation(.default)
+               .closeOnTap(false)
+               .closeOnTapOutside(true)
+           
+           
+       }
+        
+        
+        //앱 실행시 동작 사항들
+        .onAppear{
+            
+            self.showingPopup = true
+            
+           
+          
+            
+           
+                
+                let b =  UserDefaults.standard.value(forKey: "textData") ?? ""
+                text = b as! String
+            
+               
+            
+          
+            
+            
+           
+           
+          
+           
+        }
         
         
         //복사완료 팝업
@@ -571,25 +784,8 @@ struct ContentView: View {
         
         
         
-        //휴지통 팝업
-        .popup(isPresented: $trashPopup) {
-           
-         createTrashPopup()
-           
-           
-           
-       } customize: {
-           $0
-               .autohideIn(1000)
-               .type(.toast)
-               .position(.bottom)
-               .animation(.default)
-               .closeOnTap(true)
-               .closeOnTapOutside(true)
-           
-           
-       }
-        
+      
+       
       
         
        
@@ -627,25 +823,9 @@ struct ContentView: View {
             
             
         }
-        //앱 실행시 동작 사항들
-        .onAppear{
-            
-           
-            
-           
-            self.showingPopup = true
-            
-           
-            
-            
-          
-                
-                let b =  UserDefaults.standard.value(forKey: "textData") ?? ""
-                text = b as! String
-                
-          
-           
-        }
+        
+        
+        
         
       
         
@@ -655,7 +835,9 @@ struct ContentView: View {
     }//bodyView
         
     
+    
 }//contentView
+    
 
 
 
@@ -680,7 +862,7 @@ struct ContentView_Previews: PreviewProvider {
         
         ContentView(swipeDown: false)
            
-        
+           
         
         
         

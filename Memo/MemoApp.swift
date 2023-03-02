@@ -12,6 +12,7 @@ struct MemoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(swipeDown: false)
+                
             
                 
         }
