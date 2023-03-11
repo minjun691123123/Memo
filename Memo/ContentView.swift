@@ -230,117 +230,256 @@ struct ContentView: View {
                             List {
                        
                           
-                                
-                                Text(garbage0)
-                                                        
+                                HStack{
+                                    Text(garbage0)
+                                    
                                         .foregroundColor(CustomColor.basicBlue)
                                         .onTapGesture {
                                             text = garbage0
                                             trashPopup = false
                                         }
+                                    Spacer()
+                                    Image(systemName: garbage0 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage0 = ""
+                                            garbage0 = garbage1
+                                            garbage1 = garbage2
+                                            garbage2 = garbage3
+                                            garbage3 = garbage4
+                                            garbage4 = garbage5
+                                            garbage5 = garbage6
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                }
+                                
                             
                                            
                                 
                          
-                                    
+                                HStack{
                                     Text(garbage1)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage1
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                   
                                     
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage1
+                                            trashPopup = false
+                                            
+                                        }
+                                    Spacer()
+                                    Image(systemName: garbage1 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                           
+                                             garbage1 = ""
+                                            garbage1 = garbage2
+                                            garbage2 = garbage3
+                                            garbage3 = garbage4
+                                            garbage4 = garbage5
+                                            garbage5 = garbage6
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                        
+                                    
+                                }
                                
-                                    
+                                HStack{
                                     Text(garbage2)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage2
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                   
-                                
+                                    
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage2
+                                            trashPopup = false
+                                            
+                                        }
+                                    Spacer()
+                                    Image(systemName: garbage2 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage2 = ""
+                                            
+                                            garbage2 = garbage3
+                                            garbage3 = garbage4
+                                            garbage4 = garbage5
+                                            garbage5 = garbage6
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                    
+                                }
                                
+                                
+                                HStack{
                                     Text(garbage3)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage3
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                   
-                                
-                            
                                     
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage3
+                                            trashPopup = false
+                                            
+                                        }
+                                    
+                                    Spacer()
+                                    Image(systemName: garbage3 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage3 = ""
+                                            
+                                            
+                                            garbage3 = garbage4
+                                            garbage4 = garbage5
+                                            garbage5 = garbage6
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                    
+                                    
+                                    
+                                }
+                                
+                                HStack{
                                     Text(garbage4)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage4
-                                                                    trashPopup = false
-                                                                    
-                                                                }
+                                    
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage4
+                                            trashPopup = false
+                                            
+                                        }
+                                    Spacer()
+                                    Image(systemName: garbage4 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage4 = ""
+                                            
+                                            
+                                           
+                                            garbage4 = garbage5
+                                            garbage5 = garbage6
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                }
                                  
-                                    
+                                HStack{
                                     Text(garbage5)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage5
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                   
                                     
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage5
+                                            trashPopup = false
+                                            
+                                        }
+                                    
+                                    Spacer()
+                                    Image(systemName: garbage5 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage5 = ""
+                                            
+                                           
+                                            garbage5 = garbage6
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                }
+                                HStack{
                                     Text(garbage6)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage6
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                   
                                     
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage6
+                                            trashPopup = false
+                                            
+                                        }
+                                    
+                                    
+                                    Spacer()
+                                    Image(systemName: garbage6 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage6 = ""
+                                    
+                                            garbage6 = garbage7
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                }
+                                HStack{
                                     Text(garbage7)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage7
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                   
+                                    
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage7
+                                            trashPopup = false
+                                            
+                                        }
+                                    
+                                    Spacer()
+                                    Image(systemName: garbage7 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage7 = ""
+                                    
+                                           
+                                            garbage7 = garbage8
+                                            garbage8 = garbage9
+                                        }
+                                }
                                 
-                           
+                                HStack{
                                     
                                     Text(garbage8)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage8
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                   
-                               
                                     
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage8
+                                            trashPopup = false
+                                            
+                                        }
+                                    
+                                    Spacer()
+                                    Image(systemName: garbage8 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage8 = ""
+                                    
+                                           
+                                            
+                                            garbage8 = garbage9
+                                        }
+                                    
+                                }
+                                HStack{
                                     Text(garbage9)
-                                                            
-                                                                .foregroundColor(CustomColor.basicBlue)
-                                                                .onTapGesture {
-                                                                    text = garbage9
-                                                                    trashPopup = false
-                                                                    
-                                                                }
-                                  
-                                   
+                                    
+                                        .foregroundColor(CustomColor.basicBlue)
+                                        .onTapGesture {
+                                            text = garbage9
+                                            trashPopup = false
+                                            
+                                        }
+                                    
+                                    Spacer()
+                                    Image(systemName: garbage9 == "" ? "" : "multiply")
+                                        .onTapGesture {
+                                           
+                                            garbage9 = ""
+                                    
+                                           
+                                           
+                                           
+                                        }
+                                    
+                                }
                             }
                     }
                 
