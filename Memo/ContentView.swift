@@ -14,6 +14,13 @@ import Toast_Swift
 import ExtensionKit
 
 
+extension String {
+  var localized: String {
+    return NSLocalizedString(self, comment: "")
+  }
+}
+
+
 struct todoList: Codable{
   
  var content: String
@@ -31,8 +38,6 @@ struct CustomColor {
 struct ContentView: View {
     
   
-
-    
     
     @State private var theId = 0
 
@@ -46,7 +51,7 @@ struct ContentView: View {
     @State var imageChange : Bool = false
     
    
-    
+    @State private var location: CGPoint = CGPoint(x: 50, y: 50);
     
     @State private var coopyPopup: Bool = false
     
@@ -85,6 +90,8 @@ struct ContentView: View {
     @AppStorage("garbage7")    var garbage7 : String = ""
     @AppStorage("garbage8")    var garbage8 : String = ""
     @AppStorage("garbage9")    var garbage9 : String = ""
+    
+    @Environment(\.colorScheme) var colorScheme
     
     
     let encoder = JSONEncoder()
@@ -164,312 +171,7 @@ struct ContentView: View {
     */
     
     
-    //팝업 메뉴 함수
-    func createBottomPopUp() -> some View {
-        
-        GeometryReader() { geometry in
-            
-          
-            VStack(spacing: 0){
-                
-               
-                HStack(){
-                  
-                        Spacer()
-                        
-                        
-                        //휴지통 버튼
-                        Button(action:{
-                            
-                            trashPopup = true
-                         
-                           
-                        }){
-                            Image(systemName: !garbage0.isEmpty  ? "trash.fill" :"trash")
-                        }.font(.system(size:30))
-                         
-                    
-                 
-                        
-           
-                        
-                        
-                        
-                        
-                        Spacer()
-                        
-                        //피커뷰에 관한 코드
-                        Picker("Select a fontSize", selection: $fontSelection) {
-                            ForEach(fontScale, id: \.self) {
-                                Text("Size : \($0)")
-                                
-                                
-                                
-                            }
-                            
-                        }
-                        
-                        
-                        
-                        
-                        .pickerStyle(.menu)
-                        
-                        
-                        Spacer()
-                    
-                        
-                        //복사 UI
-                        Button {
-                            coopyPopup = true
-                            copyToPasteboard()
-                            self.imageChange.toggle()
-                        } label: {
-                            Image(systemName: self.imageChange == true ? "doc.on.doc.fill": "doc.on.doc")
-                        }.font(.system(size:30))
-                        
-                        /* Spacer()
-                         
-                         
-                         
-                         Picker("Select a paint color", selection: $colorSelection) {
-                         ForEach(colors, id: \.self) {
-                         Text($0)
-                         
-                         
-                         
-                         }
-                         }
-                         .pickerStyle(.menu)
-                         
-                         
-                         
-                         
-                         */
-                        
-                        
-                        Spacer()
-                        
-                        
-                        
-                        
-                    }//HStack
-                    .padding(.bottom,15)
-                    .padding(.top,0)
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                
-                
-                
-                
-                
-                
-                //User가 적을 TextFiled
-                TextEditor(text: $text)
-                    .foregroundColor(Color.white)
-                    .padding()
-                    .font(.system(size:CGFloat(fontSize(fontSelection))))
-                    .background(CustomColor.darkGrey)
-                    .scrollContentBackground(.hidden)
-                    .gesture(
-                          DragGesture()
-                            .onChanged { (value) in
-                              //MARK: What is it missing here?
-                              switch value.location.y {
-                              case ...(-50):
-                                self.swipeDown = false
-                                print("up")
-                              case 50...:
-                                self.swipeDown = true
-                                print("down")
-                                  //글자 저장
-                                  UserDefaults.standard.set(text, forKey: "textData" )
-                              
-                                  
-                                  
-                                  
-                                  //팝업 종료
-                                  showingPopup = false
-                                  
-                                  
-                                  
-                                  
-                                  //앱 종료
-                                  UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
-                                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                      
-                                      
-                                      
-                                      exit(0)
-                                  }
-                              default: ()
-                              }
-                                
-                        })
-                
-                   
-              
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                //가장 아래 Clear / Save 버튼 을 담아두는 Stack
-                HStack(spacing:0){
-                  
-                        //Clear Button
-                        Button("Clear"){
-                            //글자 삭제
-                            self.clearPopup  = true
-                            
-                            
-                            
-                        }
-                        .frame(width: geometry.size.width / 2, height: geometry.size.height / 10)
-                        .background(Color.white)
-                        .font(.system(.largeTitle))
-                        .fontWeight(.bold)
-                        .actionSheet(isPresented: $clearPopup) {
-                            ActionSheet(
-                                title: Text("Delete?"),
-                                buttons: [
-                                    .cancel(),
-                                    .destructive(Text("Yes"),action: {
-                                        
-                                        //변수에 내용물 저장
-                                        
-                                        
-                                        if garbage0.isEmpty{
-                                            garbage0 = text
-                                        }
-                                        else if !garbage0.isEmpty && garbage1.isEmpty{
-                                            garbage1 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && garbage2.isEmpty{
-                                            garbage2 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && garbage3.isEmpty{
-                                            garbage3 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && garbage4.isEmpty{
-                                            garbage4 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && garbage5.isEmpty{
-                                            garbage5 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && garbage6.isEmpty{
-                                            garbage6 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && garbage7.isEmpty{
-                                            garbage7 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && garbage8.isEmpty{
-                                            garbage8 = text
-                                        }
-                                        else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && !garbage8.isEmpty && garbage9.isEmpty{
-                                            
-                                            garbage0 = ""
-                                            garbage0 = garbage1
-                                            garbage1 = garbage2
-                                            garbage2 = garbage3
-                                            garbage3 = garbage4
-                                            garbage4 = garbage5
-                                            garbage5 = garbage6
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = text
-                                            
-                                            
-                                            
-                                        }
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        text=""
-                                    }
-                                        
-                                       
-                                       
-                                    
-                                    
-                                    ),
-                                    .default(Text("No"))
-                                ]
-                            )
-                        
-                        }
-                    
-                    
-                    //Save Button
-                    Button("Save"){
-                        
-                        
-                        
-                        //글자 저장
-                        UserDefaults.standard.set(text, forKey: "textData" )
-                        
-                        
-                        
-                
-                       
-                      
-                        
-                        //팝업 종료
-                        showingPopup = false
-                        
-                        
-                        //앱 종료
-                        UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            
-                            
-                            
-                            exit(0)
-                        }
-                        
-                    }
-                    .frame(width: geometry.size.width / 2,  height: geometry.size.height / 10)
-                    .background(Color.blue)
-                    .foregroundColor(Color.white)
-                    .font(.system(.largeTitle))
-                    .fontWeight(.bold)
-                    
-                    
-                    
-                    
-                    
-                }
-               
-                
-                
-            }//VStack
-            
-            
-            
-            
-        }//Geo
-        
-        
-    
-        
-        
-        
-        
-        
-    }//function
-    
+
     
     func copyPopup() -> some View {
             VStack(spacing: 10) {
@@ -478,7 +180,7 @@ struct ContentView: View {
                         Button(action: {
                             self.coopyPopup = false
                         }) {
-                            Text("Copy!")
+                            Text("\(BBIn.Alert.copy)")
                                 .font(.system(size: 30))
                                 .foregroundColor(CustomColor.basicBlue)
                                 .fontWeight(.bold)
@@ -499,7 +201,12 @@ struct ContentView: View {
     
     func createTrashPopup() -> some View {
         
+       
+        
         GeometryReader() { geometry in
+            
+          
+            
             VStack(spacing: 10) {
                 
                 
@@ -510,13 +217,14 @@ struct ContentView: View {
                         
                         Spacer()
                     
-                        Text("Nothing").fontWeight(.bold)
+                    Text("\(BBIn.Alert.nothing)").fontWeight(.bold)
                             .font(.system(size:30))
                         Spacer()
                         
                     }else{
-                        Text("Trash")
+                        Text("\(BBIn.Alert.trash)")
                             .font(.system(size:30))
+                            .foregroundColor(colorScheme == .light ? .black : .white)
                      
                        
                             List {
@@ -639,7 +347,7 @@ struct ContentView: View {
                     
                
                     HStack{
-                        Button("OK") {
+                        Button("\(BBIn.Alert.ok)") {
                             // 실행할 코드
                             trashPopup = false
                         }
@@ -667,7 +375,7 @@ struct ContentView: View {
                             trashPopup = false
                             
                         }, label: {
-                            Text("All Delete")
+                            Text("\(BBIn.Alert.AllDelete)")
                                 .frame(width: geometry.size.width / 2, height: geometry.size.height / 9)
                                 .foregroundColor(Color.white)
                                 .fontWeight(.bold)
@@ -703,133 +411,374 @@ struct ContentView: View {
         
         }
     
-    
-    var body: some View {
+ 
+   
         
    
         
+    
+           
         
         
         
-        ZStack{
-           
-           
-            
-            
-        }//ZStack
-        //휴지통 팝업
-        .popup(isPresented: $trashPopup) {
-           
-         createTrashPopup()
-           
-           
-           
-       } customize: {
-           
-           $0
-               .autohideIn(1000)
-               .type(.toast)
-               .position(.bottom)
-               .animation(.default)
-               .closeOnTap(false)
-               .closeOnTapOutside(true)
-           
-           
-       }
         
-        
-        //앱 실행시 동작 사항들
-        .onAppear{
-            
-            self.showingPopup = true
-            
-           
-          
-            
-           
-                
-                let b =  UserDefaults.standard.value(forKey: "textData") ?? ""
-                text = b as! String
-            
+           var body: some View {
                
-            
-          
-            
-            
-           
-           
-          
-           
-        }
-        
-        
-        //복사완료 팝업
-        .popup(isPresented: $coopyPopup) {
-           
-         copyPopup()
-           
-           
-           
-       } customize: {
-           $0
-               .autohideIn(1)
-               .type(.toast)
-               .position(.bottom)
-               .animation(.default)
-               .closeOnTap(true)
-               .closeOnTapOutside(true)
-           
-           
-       }
-        
-        
-        
-      
-       
-      
-        
-       
-        
-      
-        
-        
-        //팝업뷰가 생성됨으로써 실행되는 사항들
-        .popup(isPresented: $showingPopup) {
-            
-            
-                
-                createBottomPopUp()
-           
-            
-            
-          
+               
+               
+               GeometryReader() { geometry in
+                   
+                   
+                   VStack(spacing: 0){
+                       
+                       
+                       HStack(){
+                           
+                           Spacer()
+                           
+                           
+                           //휴지통 버튼
+                           Button(action:{
+                               
+                               trashPopup = true
+                               
+                               
+                           }){
+                               Image(systemName: !garbage0.isEmpty  ? "trash.fill" :"trash")
+                           }.font(.system(size:30))
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           Spacer()
+                           
+                           //피커뷰에 관한 코드
+                           Picker("Select a fontSize", selection: $fontSelection) {
+                               ForEach(fontScale, id: \.self) {
+                                   Text("\(BBIn.Alert.size) : \($0)")
+                                   
+                                   
+                                   
+                               }
+                               
+                           }
+                           
+                           
+                           
+                           
+                           .pickerStyle(.menu)
+                           
+                           
+                           Spacer()
+                           
+                           
+                           //복사 UI
+                           Button {
+                               coopyPopup = true
+                               copyToPasteboard()
+                               self.imageChange.toggle()
+                           } label: {
+                               Image(systemName: self.imageChange == true ? "doc.on.doc.fill": "doc.on.doc")
+                           }.font(.system(size:30))
+                           
+                           /* Spacer()
+                            
+                            
+                            
+                            Picker("Select a paint color", selection: $colorSelection) {
+                            ForEach(colors, id: \.self) {
+                            Text($0)
+                            
+                            
+                            
+                            }
+                            }
+                            .pickerStyle(.menu)
+                            
+                            
+                            
+                            
+                            */
+                           
+                           
+                           Spacer()
+                           
+                           
+                           
+                           
+                       }//HStack
+                       .padding(.bottom,15)
+                       .padding(.top,0)
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       //User가 적을 TextFiled
+                       TextEditor(text: $text)
+                           .foregroundColor(Color.white)
+                           .padding()
+                           .font(.system(size:CGFloat(fontSize(fontSelection))))
+                           .background(CustomColor.darkGrey)
+                           .scrollContentBackground(.hidden)
+                           
+                                           
+                                           
+                                       
+                                       
+                                       
+                               
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       //가장 아래 Clear / Save 버튼 을 담아두는 Stack
+                       HStack(spacing:0){
+                           
+                           //Clear Button
+                           Button("\(BBIn.Alert.clear)"){
+                               //글자 삭제
+                               self.clearPopup  = true
+                               
+                               
+                               
+                           }
+                           .frame(width: geometry.size.width / 2, height: geometry.size.height / 10)
+                           .background(Color.white)
+                           .font(.system(.largeTitle))
+                           .fontWeight(.bold)
+                           .actionSheet(isPresented: $clearPopup) {
+                               ActionSheet(
+                                   title: Text("\(BBIn.Alert.delete)?"),
+                                   buttons: [
+                                       .cancel(),
+                                       .destructive(Text("\(BBIn.Alert.yes)"),action: {
+                                           
+                                           //변수에 내용물 저장
+                                           
+                                           
+                                           if garbage0.isEmpty{
+                                               garbage0 = text
+                                           }
+                                           else if !garbage0.isEmpty && garbage1.isEmpty{
+                                               garbage1 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && garbage2.isEmpty{
+                                               garbage2 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && garbage3.isEmpty{
+                                               garbage3 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && garbage4.isEmpty{
+                                               garbage4 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && garbage5.isEmpty{
+                                               garbage5 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && garbage6.isEmpty{
+                                               garbage6 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && garbage7.isEmpty{
+                                               garbage7 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && garbage8.isEmpty{
+                                               garbage8 = text
+                                           }
+                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && !garbage8.isEmpty && garbage9.isEmpty{
+                                               
+                                               garbage0 = ""
+                                               garbage0 = garbage1
+                                               garbage1 = garbage2
+                                               garbage2 = garbage3
+                                               garbage3 = garbage4
+                                               garbage4 = garbage5
+                                               garbage5 = garbage6
+                                               garbage6 = garbage7
+                                               garbage7 = garbage8
+                                               garbage8 = text
+                                               
+                                               
+                                               
+                                           }
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           text=""
+                                       }
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                   ),
+                                       .default(Text("\(BBIn.Alert.no)"))
+                                   ]
+                               )
+                               
+                           }
+                           
+                           
+                           //Save Button
+                           Button("\(BBIn.Alert.save)"){
+                               
+                               
+                               
+                               //글자 저장
+                               UserDefaults.standard.set(text, forKey: "textData" )
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               //팝업 종료
+                               showingPopup = false
+                               
+                               
+                               //앱 종료
+                               UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                               DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                   
+                                   
+                                   
+                                   exit(0)
+                               }
+                               
+                           }
+                           .frame(width: geometry.size.width / 2,  height: geometry.size.height / 10)
+                           .background(Color.blue)
+                           .foregroundColor(Color.white)
+                           .font(.system(.largeTitle))
+                           .fontWeight(.bold)
+                           
+                           
+                           
+                           
+                           
+                       }
+                       
+                       
+                       
+                   }//VStack
+                   
+                   
+                   
+                   
+               }//Geo
+               
+               
+               ZStack{
+                   
+                   
+                   
+                   
+               }//ZStack
+               //휴지통 팝업
+               .popup(isPresented: $trashPopup) {
+                   
+                   createTrashPopup()
+                   
+                   
+                   
+               } customize: {
+                   
+                   $0
+                       .autohideIn(1000)
+                       .type(.toast)
+                       .position(.bottom)
+                       .animation(.default)
+                       .closeOnTap(false)
+                       .closeOnTapOutside(true)
+                   
+                   
+               }
+               
+               
+               //앱 실행시 동작 사항들
+               .onAppear{
+                   
+                   self.showingPopup = true
+                   
+                   
+                   
+                   
+                   
+                   
+                   let b =  UserDefaults.standard.value(forKey: "textData") ?? ""
+                   text = b as! String
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+               }
+               
+               
+               //복사완료 팝업
+               .popup(isPresented: $coopyPopup) {
+                   
+                   copyPopup()
+                   
+                   
+                   
+               } customize: {
+                   $0
+                       .autohideIn(1)
+                       .type(.toast)
+                       .position(.bottom)
+                       .animation(.default)
+                       .closeOnTap(true)
+                       .closeOnTapOutside(true)
+                   
+                   
+               }
+               
+               
+               
+               
+     
 
-            
-            
-        } customize: {
-            
-            
-            $0
-            
-            
-            
-        
-                .autohideIn(1000)
-                .type(.toast)
-                .position(.bottom)
-                .animation(.default)
-                .closeOnTap(false)
-                .closeOnTapOutside(false)
-            
-            
-        }
-        
-        
-        
-        
-      
-        
-        
+                         
+                         
+                    
+               
+               
+               
+               
+               
+           
         
         
     }//bodyView

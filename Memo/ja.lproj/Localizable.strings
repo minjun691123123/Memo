@@ -1,0 +1,23 @@
+/*
+  Localizable.strings
+  Memo
+
+  Created by 송민준 on 2023/03/11.
+  
+*/
+
+//change language
+save = "保存";
+clear = "削除";
+AllDelete = "禅部 削除";
+cancle = "キャンセル";
+size = "サイズ";
+delete = "削除";
+copy = "コピー完了!";
+nothing = "何もない!";
+trash = "ごみ箱";
+ok = "ok";
+yes = "はい";
+no = "いいえ";
+
+

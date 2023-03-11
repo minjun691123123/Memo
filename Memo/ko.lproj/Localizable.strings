@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  Memo
+
+  Created by 송민준 on 2023/03/11.
+  
+*/
+save = "저장";
+clear = "삭제";
+AllDelete = "전체 삭제";
+cancle = "취소";
+size = "글자 크기";
+delete = "삭제하시겠습니까";
+copy = "복사 완료!";
+nothing = "비어있습니다!";
+trash = "휴지통";
+ok = "확인";
+yes = "네";
+no = "아니오";

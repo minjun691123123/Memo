@@ -15,6 +15,8 @@
 		8A3889372995CD54001C9AF7 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3889362995CD54001C9AF7 /* MemoUITests.swift */; };
 		8A3889392995CD54001C9AF7 /* MemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3889382995CD54001C9AF7 /* MemoUITestsLaunchTests.swift */; };
 		8A675D0029A47C4700FD9B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A38891F2995CD54001C9AF7 /* Assets.xcassets */; };
+		8AE16E8029BC12B2000D9869 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AE16E8229BC12B2000D9869 /* Localizable.strings */; };
+		8AE16E8529BC1385000D9869 /* BBIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE16E8429BC1385000D9869 /* BBIn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,11 @@
 		8A3889362995CD54001C9AF7 /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		8A3889382995CD54001C9AF7 /* MemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8ACCD14729B0E91800987587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AE16E8129BC12B2000D9869 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AE16E8329BC1307000D9869 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AE16E8429BC1385000D9869 /* BBIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBIn.swift; sourceTree = "<group>"; };
+		8AE16E8629BC2866000D9869 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AE16E8729BC2A5D000D9869 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AA5E75BE308560FA2C4403CF /* Pods_Memo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Memo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D35FA38F43C477C719640BE0 /* Pods-Memo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memo.debug.xcconfig"; path = "Target Support Files/Pods-Memo/Pods-Memo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +104,7 @@
 		8A38890F2995CD52001C9AF7 = {
 			isa = PBXGroup;
 			children = (
+				8AE16E8429BC1385000D9869 /* BBIn.swift */,
 				8A38891A2995CD52001C9AF7 /* Memo */,
 				8A38892B2995CD54001C9AF7 /* MemoTests */,
 				8A3889352995CD54001C9AF7 /* MemoUITests */,
@@ -124,6 +132,7 @@
 				8A38891D2995CD52001C9AF7 /* ContentView.swift */,
 				8A38891F2995CD54001C9AF7 /* Assets.xcassets */,
 				8A3889212995CD54001C9AF7 /* Preview Content */,
+				8AE16E8229BC12B2000D9869 /* Localizable.strings */,
 			);
 			path = Memo;
 			sourceTree = "<group>";
@@ -241,6 +250,9 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
+				ja,
+				"zh-Hans",
 			);
 			mainGroup = 8A38890F2995CD52001C9AF7;
 			productRefGroup = 8A3889192995CD52001C9AF7 /* Products */;
@@ -260,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3889232995CD54001C9AF7 /* Preview Assets.xcassets in Resources */,
+				8AE16E8029BC12B2000D9869 /* Localizable.strings in Resources */,
 				8A675D0029A47C4700FD9B49 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,6 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AE16E8529BC1385000D9869 /* BBIn.swift in Sources */,
 				8A38891E2995CD52001C9AF7 /* ContentView.swift in Sources */,
 				8A38891C2995CD52001C9AF7 /* MemoApp.swift in Sources */,
 			);
@@ -364,11 +378,26 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		8AE16E8229BC12B2000D9869 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AE16E8129BC12B2000D9869 /* en */,
+				8AE16E8329BC1307000D9869 /* ko */,
+				8AE16E8629BC2866000D9869 /* ja */,
+				8AE16E8729BC2A5D000D9869 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		8A38893A2995CD54001C9AF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -429,6 +458,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -488,7 +518,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Memo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
@@ -504,7 +534,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -524,7 +554,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Memo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
@@ -540,7 +570,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
