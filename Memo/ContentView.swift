@@ -12,7 +12,19 @@ import SwiftUI
 import ExytePopupView
 import Toast_Swift
 import ExtensionKit
+import WidgetKit
+import Combine
 
+
+extension UserDefaults{
+    static var shared : UserDefaults{
+        
+        let appGroupId = "group.dynozer.memo"
+       
+        
+        return UserDefaults(suiteName: appGroupId)!
+    }
+}
 
 extension String {
   var localized: String {
@@ -21,11 +33,7 @@ extension String {
 }
 
 
-struct todoList: Codable{
-  
- var content: String
-   
-}
+
 
 
 //불러올 색상
@@ -37,20 +45,20 @@ struct CustomColor {
 
 struct ContentView: View {
     
-  
+    
     
     @State private var theId = 0
-
+    
     @State var swipeDown: Bool
     
     
-   
+    
     @State private var trashPopup: Bool = false
     
     //Image Change를 위한 bool 변수
     @State var imageChange : Bool = false
     
-   
+    
     @State private var location: CGPoint = CGPoint(x: 50, y: 50);
     
     @State private var coopyPopup: Bool = false
@@ -67,18 +75,18 @@ struct ContentView: View {
     private let pasteboard = UIPasteboard.general
     
     //pikerView의 기본적인 세팅이 흰색인 변수
-   // @State private var colorSelection = "White"
-     //pikerView의 여러 색상을 담아둔 변수
-   // let colors = ["Red", "Black","White"]
+    // @State private var colorSelection = "White"
+    //pikerView의 여러 색상을 담아둔 변수
+    // let colors = ["Red", "Black","White"]
     
     //pikerView의 기본적인 Font세팅 사이즈
     @State private var fontSelection = "30"
     
     //pikerView의 Font 종류를 담아둔 변수
-    let fontScale = ["20","25", "30","35","40"]
+    let fontScale = ["20","25", "30","35","40","45","50","55","60"]
     
     //textFiled에서 적힌 text를 담아두는 변수
-    @State private var text: String = ""
+    @AppStorage("text") private var text: String = ""
     
     @AppStorage("garbage0")    var garbage0 : String = ""
     @AppStorage("garbage1")    var garbage1 : String = ""
@@ -94,22 +102,21 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     
     
-    let encoder = JSONEncoder()
-
-    let decoder = JSONDecoder()
-  
- 
     
-
-  /*  //todoList(Trash)에 text 추가
-    func appendTodoList() {
-        let addList = todoList(content: text)
-
-        todoLists.append(addList)
-        text = ""
-    }
-   */
-   
+    
+    
+    
+    
+    
+    /*  //todoList(Trash)에 text 추가
+     func appendTodoList() {
+     let addList = todoList(content: text)
+     
+     todoLists.append(addList)
+     text = ""
+     }
+     */
+    
     //text를 복사함
     func copyToPasteboard() {
         pasteboard.string = text
@@ -117,7 +124,7 @@ struct ContentView: View {
     }
     
     //피커 뷰 별 글 색상 변경
-
+    
     func foregroundColor(_ status: String) -> Color {
         
         
@@ -151,6 +158,16 @@ struct ContentView: View {
             return 30
         case "35":
             return 35
+        case "40":
+            return 40
+        case "45":
+            return 45
+        case "50":
+            return 50
+        case "55":
+            return 55
+        case "60":
+            return 60
             
         default:
             return 40
@@ -158,789 +175,847 @@ struct ContentView: View {
     }
     
     //todoLists에 있는 정보 불러오기
-   /* func dataLoad(){
-        if let data = UserDefaults.standard.value(forKey:"todoLists") as? Data {
-            let todoListscopy = try? PropertyListDecoder().decode(Array<todoList>.self, from: data)
-            self.todoLists = todoListscopy!
-            
-            
-            
-        }
-        
-    }
-    */
+    /* func dataLoad(){
+     if let data = UserDefaults.standard.value(forKey:"todoLists") as? Data {
+     let todoListscopy = try? PropertyListDecoder().decode(Array<todoList>.self, from: data)
+     self.todoLists = todoListscopy!
+     
+     
+     
+     }
+     
+     }
+     */
     
     
 
+    //팝업 메뉴 함수
+    func createBottomPopUp() -> some View {
+        
+        GeometryReader() { geometry in
+            
+            
+            VStack(spacing: 0){
+                
+                
+                HStack(){
+                    
+                    Spacer()
+                    
+                    
+                    //휴지통 버튼
+                    Button(action:{
+                        
+                        trashPopup = true
+                        
+                        
+                    }){
+                        Image(systemName: !garbage0.isEmpty  ? "trash.fill" :"trash")
+                    }.font(.system(size:30))
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    Spacer()
+                    
+                    //피커뷰에 관한 코드
+                    Picker("Select a fontSize", selection: $fontSelection) {
+                        ForEach(fontScale, id: \.self) {
+                            Text("\(BBIn.Alert.size) : \($0)")
+                            
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    
+                    
+                    
+                    .pickerStyle(.menu)
+                    
+                    
+                    Spacer()
+                    
+                    
+                    //복사 UI
+                    Button {
+                        coopyPopup = true
+                        copyToPasteboard()
+                        self.imageChange.toggle()
+                    } label: {
+                        Image(systemName: self.imageChange == true ? "doc.on.doc.fill": "doc.on.doc")
+                    }.font(.system(size:30))
+                    
+                    /* Spacer()
+                     
+                     
+                     
+                     Picker("Select a paint color", selection: $colorSelection) {
+                     ForEach(colors, id: \.self) {
+                     Text($0)
+                     
+                     
+                     
+                     }
+                     }
+                     .pickerStyle(.menu)
+                     
+                     
+                     
+                     
+                     */
+                    
+                    
+                    Spacer()
+                    
+                    
+                    
+                    
+                }//HStack
+                .padding(.bottom,15)
+                .padding(.top,0)
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                //User가 적을 TextFiled
+                TextEditor(text: $text)
+                    .foregroundColor(Color.white)
+                    .padding()
+                    .font(.system(size:CGFloat(fontSize(fontSelection))))
+                    .background(CustomColor.darkGrey)
+                    .scrollContentBackground(.hidden)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { (value) in
+                                //MARK: What is it missing here?
+                                switch value.location.y {
+                                case ...(-50):
+                                    self.swipeDown = false
+                                    print("up")
+                                case 50...:
+                                    self.swipeDown = true
+                                    print("down")
+                                    
+                                   
+                                   
+                                    //text UserDefaults에 저장
+                                    UserDefaults.standard.set(text, forKey: "textData")
+                                    let extext =  UserDefaults.standard.value(forKey: "textData") ?? "Nothing"
+                                    
+                                    UserDefaults.shared.set(extext, forKey: "textWidgetData")
+                                    
+                                    
+                               
+                                    
+                                    
+                                    
+                                    
+                                   
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    //팝업 종료
+                                    showingPopup = false
+                                    
+                                    
+                                    
+                                    
+                                    //앱 종료
+                                    UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        
+                                        
+                                        
+                                        exit(0)
+                                    }
+                                default: ()
+                                }
+                                
+                            })
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                //가장 아래 Clear / Save 버튼 을 담아두는 Stack
+                HStack(spacing:0){
+                    
+                    //Clear Button
+                    Button("\(BBIn.Alert.clear)"){
+                        //글자 삭제
+                        self.clearPopup  = true
+                        
+                        
+                        
+                    }
+                    .frame(width: geometry.size.width / 2, height: geometry.size.height / 10)
+                    .background(Color.white)
+                    .font(.system(.largeTitle))
+                    .fontWeight(.bold)
+                    .actionSheet(isPresented: $clearPopup) {
+                        ActionSheet(
+                            title: Text("\(BBIn.Alert.delete)?"),
+                            buttons: [
+                                .cancel(),
+                                .destructive(Text("\(BBIn.Alert.yes)"),action: {
+                                    
+                                    //변수에 내용물 저장
+                                    
+                                    
+                                    if garbage0.isEmpty{
+                                        garbage0 = text
+                                    }
+                                    else if !garbage0.isEmpty && garbage1.isEmpty{
+                                        garbage1 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && garbage2.isEmpty{
+                                        garbage2 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && garbage3.isEmpty{
+                                        garbage3 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && garbage4.isEmpty{
+                                        garbage4 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && garbage5.isEmpty{
+                                        garbage5 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && garbage6.isEmpty{
+                                        garbage6 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && garbage7.isEmpty{
+                                        garbage7 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && garbage8.isEmpty{
+                                        garbage8 = text
+                                    }
+                                    else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && !garbage8.isEmpty && garbage9.isEmpty{
+                                        
+                                        garbage0 = ""
+                                        garbage0 = garbage1
+                                        garbage1 = garbage2
+                                        garbage2 = garbage3
+                                        garbage3 = garbage4
+                                        garbage4 = garbage5
+                                        garbage5 = garbage6
+                                        garbage6 = garbage7
+                                        garbage7 = garbage8
+                                        garbage8 = text
+                                        
+                                        
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    text=""
+                                }
+                                             
+                                             
+                                             
+                                             
+                                             
+                                            ),
+                                .default(Text("\(BBIn.Alert.no)"))
+                            ]
+                        )
+                        
+                    }
+                    
+                    
+                    //Save Button
+                    Button("\(BBIn.Alert.save)"){
+                        
+                        
+                        
+                        //text UserDefaults에 저장
+                        UserDefaults.standard.set(text, forKey: "textData")
+                        let extext =  UserDefaults.standard.value(forKey: "textData") ?? "Nothing"
+                        
+                        UserDefaults.shared.set(extext, forKey: "textWidgetData")
+                        
+                        
+                        
+                        
+                        
+                        //팝업 종료
+                        showingPopup = false
+                        
+                        
+                        //앱 종료
+                        UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            
+                            
+                            
+                            exit(0)
+                        }
+                        
+                    }
+                    .frame(width: geometry.size.width / 2,  height: geometry.size.height / 10)
+                    .background(Color.blue)
+                    .foregroundColor(Color.white)
+                    .font(.system(.largeTitle))
+                    .fontWeight(.bold)
+                    
+                }
+            }//VStack
+            
+            
+            
+            
+        }//Geo
+        
+        
+        
+        
+        
+        
+        
+        
+    }//function
+    
+    
     
     func copyPopup() -> some View {
-            VStack(spacing: 10) {
-                
-
-                        Button(action: {
-                            self.coopyPopup = false
-                        }) {
-                            Text("\(BBIn.Alert.copy)")
-                                .font(.system(size: 30))
-                                .foregroundColor(CustomColor.basicBlue)
-                                .fontWeight(.bold)
-                        }
-                        .frame(width: 300, height: 40)
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                    }
-            //        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                        .padding(.horizontal, 10)
-                    .frame(width: 300, height: 100)
-                    .background(Color.white)
-                    .cornerRadius(10.0)
-                    .shadow(radius: 10)
+        VStack(spacing: 10) {
+            
+            
+            Button(action: {
+                self.coopyPopup = false
+            }) {
+                Text("\(BBIn.Alert.copy)")
+                    .font(.system(size: 30))
+                    .foregroundColor(CustomColor.basicBlue)
+                    .fontWeight(.bold)
+            }
+            .frame(width: 300, height: 40)
+            .background(Color.white)
+            .cornerRadius(20.0)
         }
+        //        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+        .padding(.horizontal, 10)
+        .frame(width: 300, height: 100)
+        .background(Color.white)
+        .cornerRadius(10.0)
+        .shadow(radius: 10)
+    }
+    
+    
     
     
     
     func createTrashPopup() -> some View {
         
-       
+        
         
         GeometryReader() { geometry in
             
-          
+            
             
             VStack(spacing: 10) {
                 
                 
                 
-                    
+                
                 
                 if garbage0.isEmpty {
-                        
-                        Spacer()
+                    
+                    Spacer()
                     
                     Text("\(BBIn.Alert.nothing)").fontWeight(.bold)
-                            .font(.system(size:30))
-                        Spacer()
+                        .font(.system(size:30))
+                    Spacer()
+                    
+                }else{
+                    Text("\(BBIn.Alert.trash)")
+                        .font(.system(size:30))
+                        .foregroundColor(colorScheme == .light ? .black : .white)
+                    
+                    
+                    List {
                         
-                    }else{
-                        Text("\(BBIn.Alert.trash)")
-                            .font(.system(size:30))
-                            .foregroundColor(colorScheme == .light ? .black : .white)
-                     
-                       
-                            List {
-                       
-                          
-                                HStack{
-                                    Text(garbage0)
-                                    
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage0
-                                            trashPopup = false
-                                        }
-                                    Spacer()
-                                    Image(systemName: garbage0 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage0 = ""
-                                            garbage0 = garbage1
-                                            garbage1 = garbage2
-                                            garbage2 = garbage3
-                                            garbage3 = garbage4
-                                            garbage4 = garbage5
-                                            garbage5 = garbage6
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
-                                }
-                                
+                        
+                        HStack{
+                            Text(garbage0)
                             
-                                           
-                                
-                         
-                                HStack{
-                                    Text(garbage1)
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage0
+                                    trashPopup = false
+                                }
+                            Spacer()
+                            Image(systemName: garbage0 == "" ? "" : "multiply")
+                                .onTapGesture {
                                     
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage1
-                                            trashPopup = false
-                                            
-                                        }
-                                    Spacer()
-                                    Image(systemName: garbage1 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                           
-                                             garbage1 = ""
-                                            garbage1 = garbage2
-                                            garbage2 = garbage3
-                                            garbage3 = garbage4
-                                            garbage4 = garbage5
-                                            garbage5 = garbage6
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
-                                        
+                                    garbage0 = ""
+                                    garbage0 = garbage1
+                                    garbage1 = garbage2
+                                    garbage2 = garbage3
+                                    garbage3 = garbage4
+                                    garbage4 = garbage5
+                                    garbage5 = garbage6
+                                    garbage6 = garbage7
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                        }
+                        
+                        
+                        
+                        
+                        
+                        HStack{
+                            Text(garbage1)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage1
+                                    trashPopup = false
                                     
                                 }
-                               
-                                HStack{
-                                    Text(garbage2)
+                            Spacer()
+                            Image(systemName: garbage1 == "" ? "" : "multiply")
+                                .onTapGesture {
                                     
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage2
-                                            trashPopup = false
-                                            
-                                        }
-                                    Spacer()
-                                    Image(systemName: garbage2 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage2 = ""
-                                            
-                                            garbage2 = garbage3
-                                            garbage3 = garbage4
-                                            garbage4 = garbage5
-                                            garbage5 = garbage6
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
+                                    
+                                    garbage1 = ""
+                                    garbage1 = garbage2
+                                    garbage2 = garbage3
+                                    garbage3 = garbage4
+                                    garbage4 = garbage5
+                                    garbage5 = garbage6
+                                    garbage6 = garbage7
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                            
+                            
+                        }
+                        
+                        HStack{
+                            Text(garbage2)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage2
+                                    trashPopup = false
                                     
                                 }
-                               
-                                
-                                HStack{
-                                    Text(garbage3)
+                            Spacer()
+                            Image(systemName: garbage2 == "" ? "" : "multiply")
+                                .onTapGesture {
                                     
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage3
-                                            trashPopup = false
-                                            
-                                        }
+                                    garbage2 = ""
                                     
-                                    Spacer()
-                                    Image(systemName: garbage3 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage3 = ""
-                                            
-                                            
-                                            garbage3 = garbage4
-                                            garbage4 = garbage5
-                                            garbage5 = garbage6
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
+                                    garbage2 = garbage3
+                                    garbage3 = garbage4
+                                    garbage4 = garbage5
+                                    garbage5 = garbage6
+                                    garbage6 = garbage7
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                            
+                        }
+                        
+                        
+                        HStack{
+                            Text(garbage3)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage3
+                                    trashPopup = false
+                                    
+                                }
+                            
+                            Spacer()
+                            Image(systemName: garbage3 == "" ? "" : "multiply")
+                                .onTapGesture {
+                                    
+                                    garbage3 = ""
+                                    
+                                    
+                                    garbage3 = garbage4
+                                    garbage4 = garbage5
+                                    garbage5 = garbage6
+                                    garbage6 = garbage7
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                            
+                            
+                            
+                        }
+                        
+                        HStack{
+                            Text(garbage4)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage4
+                                    trashPopup = false
+                                    
+                                }
+                            Spacer()
+                            Image(systemName: garbage4 == "" ? "" : "multiply")
+                                .onTapGesture {
+                                    
+                                    garbage4 = ""
+                                    
+                                    
+                                    
+                                    garbage4 = garbage5
+                                    garbage5 = garbage6
+                                    garbage6 = garbage7
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                        }
+                        
+                        HStack{
+                            Text(garbage5)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage5
+                                    trashPopup = false
+                                    
+                                }
+                            
+                            Spacer()
+                            Image(systemName: garbage5 == "" ? "" : "multiply")
+                                .onTapGesture {
+                                    
+                                    garbage5 = ""
+                                    
+                                    
+                                    garbage5 = garbage6
+                                    garbage6 = garbage7
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                        }
+                        HStack{
+                            Text(garbage6)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage6
+                                    trashPopup = false
+                                    
+                                }
+                            
+                            
+                            Spacer()
+                            Image(systemName: garbage6 == "" ? "" : "multiply")
+                                .onTapGesture {
+                                    
+                                    garbage6 = ""
+                                    
+                                    garbage6 = garbage7
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                        }
+                        HStack{
+                            Text(garbage7)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage7
+                                    trashPopup = false
+                                    
+                                }
+                            
+                            Spacer()
+                            Image(systemName: garbage7 == "" ? "" : "multiply")
+                                .onTapGesture {
+                                    
+                                    garbage7 = ""
+                                    
+                                    
+                                    garbage7 = garbage8
+                                    garbage8 = garbage9
+                                }
+                        }
+                        
+                        HStack{
+                            
+                            Text(garbage8)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage8
+                                    trashPopup = false
+                                    
+                                }
+                            
+                            Spacer()
+                            Image(systemName: garbage8 == "" ? "" : "multiply")
+                                .onTapGesture {
+                                    
+                                    garbage8 = ""
+                                    
+                                    
+                                    
+                                    garbage8 = garbage9
+                                }
+                            
+                        }
+                        HStack{
+                            Text(garbage9)
+                            
+                                .foregroundColor(CustomColor.basicBlue)
+                                .onTapGesture {
+                                    text = garbage9
+                                    trashPopup = false
+                                    
+                                }
+                            
+                            Spacer()
+                            Image(systemName: garbage9 == "" ? "" : "multiply")
+                                .onTapGesture {
+                                    
+                                    garbage9 = ""
+                                    
                                     
                                     
                                     
                                 }
-                                
-                                HStack{
-                                    Text(garbage4)
-                                    
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage4
-                                            trashPopup = false
-                                            
-                                        }
-                                    Spacer()
-                                    Image(systemName: garbage4 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage4 = ""
-                                            
-                                            
-                                           
-                                            garbage4 = garbage5
-                                            garbage5 = garbage6
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
-                                }
-                                 
-                                HStack{
-                                    Text(garbage5)
-                                    
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage5
-                                            trashPopup = false
-                                            
-                                        }
-                                    
-                                    Spacer()
-                                    Image(systemName: garbage5 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage5 = ""
-                                            
-                                           
-                                            garbage5 = garbage6
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
-                                }
-                                HStack{
-                                    Text(garbage6)
-                                    
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage6
-                                            trashPopup = false
-                                            
-                                        }
-                                    
-                                    
-                                    Spacer()
-                                    Image(systemName: garbage6 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage6 = ""
-                                    
-                                            garbage6 = garbage7
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
-                                }
-                                HStack{
-                                    Text(garbage7)
-                                    
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage7
-                                            trashPopup = false
-                                            
-                                        }
-                                    
-                                    Spacer()
-                                    Image(systemName: garbage7 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage7 = ""
-                                    
-                                           
-                                            garbage7 = garbage8
-                                            garbage8 = garbage9
-                                        }
-                                }
-                                
-                                HStack{
-                                    
-                                    Text(garbage8)
-                                    
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage8
-                                            trashPopup = false
-                                            
-                                        }
-                                    
-                                    Spacer()
-                                    Image(systemName: garbage8 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage8 = ""
-                                    
-                                           
-                                            
-                                            garbage8 = garbage9
-                                        }
-                                    
-                                }
-                                HStack{
-                                    Text(garbage9)
-                                    
-                                        .foregroundColor(CustomColor.basicBlue)
-                                        .onTapGesture {
-                                            text = garbage9
-                                            trashPopup = false
-                                            
-                                        }
-                                    
-                                    Spacer()
-                                    Image(systemName: garbage9 == "" ? "" : "multiply")
-                                        .onTapGesture {
-                                           
-                                            garbage9 = ""
-                                    
-                                           
-                                           
-                                           
-                                        }
-                                    
-                                }
-                            }
+                            
+                        }
                     }
+                }
                 
-                    
-               
-                    HStack{
-                        Button("\(BBIn.Alert.ok)") {
-                            // 실행할 코드
-                            trashPopup = false
-                        }
-                        
-                        .font(.system(.largeTitle))
-                        .frame(width: geometry.size.width / 2, height: geometry.size.height / 9)
-                        .fontWeight(.bold)
-                        .foregroundColor(CustomColor.basicBlue)
-                        .onTapGesture {
-                            trashPopup = false
-                        }
-                       
-                        Button(action: {
-                            
-                            garbage0 = ""
-                            garbage1 = ""
-                            garbage2 = ""
-                            garbage3 = ""
-                            garbage4 = ""
-                            garbage5 = ""
-                            garbage6 = ""
-                            garbage7 = ""
-                            garbage8 = ""
-                            garbage9 = ""
-                            trashPopup = false
-                            
-                        }, label: {
-                            Text("\(BBIn.Alert.AllDelete)")
-                                .frame(width: geometry.size.width / 2, height: geometry.size.height / 9)
-                                .foregroundColor(Color.white)
-                                .fontWeight(.bold)
-                                .font(.system(.largeTitle))
-                                .background(CustomColor.basicBlue)
-                                
-                        })
-                        
+                
+                
+                HStack{
+                    Button("\(BBIn.Alert.ok)") {
+                        // 실행할 코드
+                        trashPopup = false
                     }
                     
+                    .font(.system(.largeTitle))
+                    .frame(width: geometry.size.width / 2, height: geometry.size.height / 9)
+                    .fontWeight(.bold)
+                    .foregroundColor(CustomColor.basicBlue)
+                    .onTapGesture {
+                        trashPopup = false
+                    }
                     
-                    
-                    
-                    
-                    
+                    Button(action: {
+                        
+                        garbage0 = ""
+                        garbage1 = ""
+                        garbage2 = ""
+                        garbage3 = ""
+                        garbage4 = ""
+                        garbage5 = ""
+                        garbage6 = ""
+                        garbage7 = ""
+                        garbage8 = ""
+                        garbage9 = ""
+                        trashPopup = false
+                        
+                    }, label: {
+                        Text("\(BBIn.Alert.AllDelete)")
+                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 9)
+                            .foregroundColor(Color.white)
+                            .fontWeight(.bold)
+                            .font(.system(.largeTitle))
+                            .background(CustomColor.basicBlue)
+                        
+                    })
                     
                 }
-             
-               
-                   
-                       
                 
-               
-                  
-                    }
-            //        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                        .padding(.horizontal, 10)
-                    .frame(width: 400, height: 600)
-                    .background(Color.white)
-                    .cornerRadius(10.0)
-                    .shadow(radius: 10)
-        
-        
+                
+                
+                
+                
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
         }
-    
- 
-   
-        
-   
-        
-    
-           
+        //        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+        .padding(.horizontal, 10)
+        .frame(width: 400, height: 600)
+        .background(Color.white)
+        .cornerRadius(10.0)
+        .shadow(radius: 10)
         
         
-        
-        
-           var body: some View {
-               
-               
-               
-               GeometryReader() { geometry in
-                   
-                   
-                   VStack(spacing: 0){
-                       
-                       
-                       HStack(){
-                           
-                           Spacer()
-                           
-                           
-                           //휴지통 버튼
-                           Button(action:{
-                               
-                               trashPopup = true
-                               
-                               
-                           }){
-                               Image(systemName: !garbage0.isEmpty  ? "trash.fill" :"trash")
-                           }.font(.system(size:30))
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           Spacer()
-                           
-                           //피커뷰에 관한 코드
-                           Picker("Select a fontSize", selection: $fontSelection) {
-                               ForEach(fontScale, id: \.self) {
-                                   Text("\(BBIn.Alert.size) : \($0)")
-                                   
-                                   
-                                   
-                               }
-                               
-                           }
-                           
-                           
-                           
-                           
-                           .pickerStyle(.menu)
-                           
-                           
-                           Spacer()
-                           
-                           
-                           //복사 UI
-                           Button {
-                               coopyPopup = true
-                               copyToPasteboard()
-                               self.imageChange.toggle()
-                           } label: {
-                               Image(systemName: self.imageChange == true ? "doc.on.doc.fill": "doc.on.doc")
-                           }.font(.system(size:30))
-                           
-                           /* Spacer()
-                            
-                            
-                            
-                            Picker("Select a paint color", selection: $colorSelection) {
-                            ForEach(colors, id: \.self) {
-                            Text($0)
-                            
-                            
-                            
-                            }
-                            }
-                            .pickerStyle(.menu)
-                            
-                            
-                            
-                            
-                            */
-                           
-                           
-                           Spacer()
-                           
-                           
-                           
-                           
-                       }//HStack
-                       .padding(.bottom,15)
-                       .padding(.top,0)
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       //User가 적을 TextFiled
-                       TextEditor(text: $text)
-                           .foregroundColor(Color.white)
-                           .padding()
-                           .font(.system(size:CGFloat(fontSize(fontSelection))))
-                           .background(CustomColor.darkGrey)
-                           .scrollContentBackground(.hidden)
-                           
-                                           
-                                           
-                                       
-                                       
-                                       
-                               
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       //가장 아래 Clear / Save 버튼 을 담아두는 Stack
-                       HStack(spacing:0){
-                           
-                           //Clear Button
-                           Button("\(BBIn.Alert.clear)"){
-                               //글자 삭제
-                               self.clearPopup  = true
-                               
-                               
-                               
-                           }
-                           .frame(width: geometry.size.width / 2, height: geometry.size.height / 10)
-                           .background(Color.white)
-                           .font(.system(.largeTitle))
-                           .fontWeight(.bold)
-                           .actionSheet(isPresented: $clearPopup) {
-                               ActionSheet(
-                                   title: Text("\(BBIn.Alert.delete)?"),
-                                   buttons: [
-                                       .cancel(),
-                                       .destructive(Text("\(BBIn.Alert.yes)"),action: {
-                                           
-                                           //변수에 내용물 저장
-                                           
-                                           
-                                           if garbage0.isEmpty{
-                                               garbage0 = text
-                                           }
-                                           else if !garbage0.isEmpty && garbage1.isEmpty{
-                                               garbage1 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && garbage2.isEmpty{
-                                               garbage2 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && garbage3.isEmpty{
-                                               garbage3 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && garbage4.isEmpty{
-                                               garbage4 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && garbage5.isEmpty{
-                                               garbage5 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && garbage6.isEmpty{
-                                               garbage6 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && garbage7.isEmpty{
-                                               garbage7 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && garbage8.isEmpty{
-                                               garbage8 = text
-                                           }
-                                           else if !garbage0.isEmpty && !garbage1.isEmpty && !garbage2.isEmpty && !garbage3.isEmpty && !garbage4.isEmpty && !garbage5.isEmpty && !garbage6.isEmpty && !garbage7.isEmpty && !garbage8.isEmpty && garbage9.isEmpty{
-                                               
-                                               garbage0 = ""
-                                               garbage0 = garbage1
-                                               garbage1 = garbage2
-                                               garbage2 = garbage3
-                                               garbage3 = garbage4
-                                               garbage4 = garbage5
-                                               garbage5 = garbage6
-                                               garbage6 = garbage7
-                                               garbage7 = garbage8
-                                               garbage8 = text
-                                               
-                                               
-                                               
-                                           }
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           text=""
-                                       }
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                   ),
-                                       .default(Text("\(BBIn.Alert.no)"))
-                                   ]
-                               )
-                               
-                           }
-                           
-                           
-                           //Save Button
-                           Button("\(BBIn.Alert.save)"){
-                               
-                               
-                               
-                               //글자 저장
-                               UserDefaults.standard.set(text, forKey: "textData" )
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               //팝업 종료
-                               showingPopup = false
-                               
-                               
-                               //앱 종료
-                               UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
-                               DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                   
-                                   
-                                   
-                                   exit(0)
-                               }
-                               
-                           }
-                           .frame(width: geometry.size.width / 2,  height: geometry.size.height / 10)
-                           .background(Color.blue)
-                           .foregroundColor(Color.white)
-                           .font(.system(.largeTitle))
-                           .fontWeight(.bold)
-                           
-                           
-                           
-                           
-                           
-                       }
-                       
-                       
-                       
-                   }//VStack
-                   
-                   
-                   
-                   
-               }//Geo
-               
-               
-               ZStack{
-                   
-                   
-                   
-                   
-               }//ZStack
-               //휴지통 팝업
-               .popup(isPresented: $trashPopup) {
-                   
-                   createTrashPopup()
-                   
-                   
-                   
-               } customize: {
-                   
-                   $0
-                       .autohideIn(1000)
-                       .type(.toast)
-                       .position(.bottom)
-                       .animation(.default)
-                       .closeOnTap(false)
-                       .closeOnTapOutside(true)
-                   
-                   
-               }
-               
-               
-               //앱 실행시 동작 사항들
-               .onAppear{
-                   
-                   self.showingPopup = true
-                   
-                   
-                   
-                   
-                   
-                   
-                   let b =  UserDefaults.standard.value(forKey: "textData") ?? ""
-                   text = b as! String
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-               }
-               
-               
-               //복사완료 팝업
-               .popup(isPresented: $coopyPopup) {
-                   
-                   copyPopup()
-                   
-                   
-                   
-               } customize: {
-                   $0
-                       .autohideIn(1)
-                       .type(.toast)
-                       .position(.bottom)
-                       .animation(.default)
-                       .closeOnTap(true)
-                       .closeOnTapOutside(true)
-                   
-                   
-               }
-               
-               
-               
-               
-     
-
-                         
-                         
-                    
-               
-               
-               
-               
-               
-           
-        
-        
-    }//bodyView
-        
+    }
     
     
-}//contentView
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    var body: some View {
+        
+        
+        ZStack{
+            
+            
+            
+            
+        }//ZStack
+        
+        
+        //복사완료 팝업
+        .popup(isPresented: $coopyPopup) {
+            
+            copyPopup()
+            
+            
+            
+        } customize: {
+            $0
+                .autohideIn(1)
+                .type(.toast)
+                .position(.bottom)
+                .animation(.default)
+                .closeOnTap(true)
+                .closeOnTapOutside(true)
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //팝업뷰가 생성됨으로써 실행되는 사항들
+        .popup(isPresented: $showingPopup) {
+            
+            
+            
+            createBottomPopUp()
+            
+            
+            
+            
+            
+            
+            
+        } customize: {
+            
+            
+            $0
+            
+            
+            
+            
+                .autohideIn(10000)
+                .type(.floater())
+                .position(.top)
+                .animation(.default)
+                .closeOnTap(false)
+                .closeOnTapOutside(false)
+            
+            
+        }
+        //휴지통 팝업
+        .popup(isPresented: $trashPopup) {
+            
+            createTrashPopup()
+            
+            
+            
+        } customize: {
+            
+            $0
+                .autohideIn(1000)
+                .type(.toast)
+                .position(.bottom)
+                .animation(.default)
+                .closeOnTap(false)
+                .closeOnTapOutside(true)
+            
+            
+        }
+        
+        
+        //앱 실행시 동작 사항들
+        .onAppear{
+            
+            self.showingPopup = true
+            
+            
+            
+            
+            
+            
+            let b =  UserDefaults.standard.value(forKey: "textData") ?? ""
+            text = b as! String
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+    }// bodyview
+    
+} // contentview
 
 
 //프리뷰

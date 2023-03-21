@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0C48592107E0D7D4AC16A8AA /* Pods_Memo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5E75BE308560FA2C4403CF /* Pods_Memo.framework */; };
+		8A23CC5229C43FE000481B45 /* memoWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23CC5129C43FE000481B45 /* memoWidgetBundle.swift */; };
+		8A23CC5429C43FE000481B45 /* memoWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23CC5329C43FE000481B45 /* memoWidgetLiveActivity.swift */; };
+		8A23CC5629C43FE000481B45 /* memoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A23CC5529C43FE000481B45 /* memoWidget.swift */; };
+		8A23CC5929C43FE200481B45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A23CC5829C43FE200481B45 /* Assets.xcassets */; };
+		8A23CC5B29C43FE200481B45 /* memoWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8A23CC5729C43FE000481B45 /* memoWidget.intentdefinition */; };
+		8A23CC5C29C43FE200481B45 /* memoWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8A23CC5729C43FE000481B45 /* memoWidget.intentdefinition */; };
+		8A23CC5F29C43FE200481B45 /* memoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8A23CC4B29C43FE000481B45 /* memoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8A38891C2995CD52001C9AF7 /* MemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38891B2995CD52001C9AF7 /* MemoApp.swift */; };
 		8A38891E2995CD52001C9AF7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38891D2995CD52001C9AF7 /* ContentView.swift */; };
 		8A3889232995CD54001C9AF7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A3889222995CD54001C9AF7 /* Preview Assets.xcassets */; };
@@ -15,11 +22,20 @@
 		8A3889372995CD54001C9AF7 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3889362995CD54001C9AF7 /* MemoUITests.swift */; };
 		8A3889392995CD54001C9AF7 /* MemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3889382995CD54001C9AF7 /* MemoUITestsLaunchTests.swift */; };
 		8A675D0029A47C4700FD9B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A38891F2995CD54001C9AF7 /* Assets.xcassets */; };
+		8AC6EC0129C984AF00315564 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A23CC4C29C43FE000481B45 /* WidgetKit.framework */; };
+		8AC6EC0429C984B000315564 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A23CC4E29C43FE000481B45 /* SwiftUI.framework */; };
 		8AE16E8029BC12B2000D9869 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AE16E8229BC12B2000D9869 /* Localizable.strings */; };
 		8AE16E8529BC1385000D9869 /* BBIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE16E8429BC1385000D9869 /* BBIn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A23CC5D29C43FE200481B45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A3889102995CD52001C9AF7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A23CC4A29C43FE000481B45;
+			remoteInfo = memoWidgetExtension;
+		};
 		8A3889292995CD54001C9AF7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8A3889102995CD52001C9AF7 /* Project object */;
@@ -36,8 +52,33 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8A23CC6029C43FE200481B45 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8A23CC5F29C43FE200481B45 /* memoWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1110ACE065667D83B806BCFF /* Pods-Memo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memo.release.xcconfig"; path = "Target Support Files/Pods-Memo/Pods-Memo.release.xcconfig"; sourceTree = "<group>"; };
+		8A0F6FAE29C8684B002664C9 /* Memo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Memo.entitlements; sourceTree = "<group>"; };
+		8A0F6FAF29C868A3002664C9 /* memoWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = memoWidgetExtension.entitlements; sourceTree = "<group>"; };
+		8A23CC4B29C43FE000481B45 /* memoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = memoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A23CC4C29C43FE000481B45 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8A23CC4E29C43FE000481B45 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		8A23CC5129C43FE000481B45 /* memoWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memoWidgetBundle.swift; sourceTree = "<group>"; };
+		8A23CC5329C43FE000481B45 /* memoWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memoWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		8A23CC5529C43FE000481B45 /* memoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memoWidget.swift; sourceTree = "<group>"; };
+		8A23CC5729C43FE000481B45 /* memoWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = memoWidget.intentdefinition; sourceTree = "<group>"; };
+		8A23CC5829C43FE200481B45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8A23CC5A29C43FE200481B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A3889182995CD52001C9AF7 /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A38891B2995CD52001C9AF7 /* MemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoApp.swift; sourceTree = "<group>"; };
 		8A38891D2995CD52001C9AF7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +100,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A23CC4829C43FE000481B45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AC6EC0429C984B000315564 /* SwiftUI.framework in Frameworks */,
+				8AC6EC0129C984AF00315564 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A3889152995CD52001C9AF7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -88,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				AA5E75BE308560FA2C4403CF /* Pods_Memo.framework */,
+				8A23CC4C29C43FE000481B45 /* WidgetKit.framework */,
+				8A23CC4E29C43FE000481B45 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -101,13 +153,28 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8A23CC5029C43FE000481B45 /* memoWidget */ = {
+			isa = PBXGroup;
+			children = (
+				8A23CC5129C43FE000481B45 /* memoWidgetBundle.swift */,
+				8A23CC5329C43FE000481B45 /* memoWidgetLiveActivity.swift */,
+				8A23CC5529C43FE000481B45 /* memoWidget.swift */,
+				8A23CC5729C43FE000481B45 /* memoWidget.intentdefinition */,
+				8A23CC5829C43FE200481B45 /* Assets.xcassets */,
+				8A23CC5A29C43FE200481B45 /* Info.plist */,
+			);
+			path = memoWidget;
+			sourceTree = "<group>";
+		};
 		8A38890F2995CD52001C9AF7 = {
 			isa = PBXGroup;
 			children = (
+				8A0F6FAF29C868A3002664C9 /* memoWidgetExtension.entitlements */,
 				8AE16E8429BC1385000D9869 /* BBIn.swift */,
 				8A38891A2995CD52001C9AF7 /* Memo */,
 				8A38892B2995CD54001C9AF7 /* MemoTests */,
 				8A3889352995CD54001C9AF7 /* MemoUITests */,
+				8A23CC5029C43FE000481B45 /* memoWidget */,
 				8A3889192995CD52001C9AF7 /* Products */,
 				8798F2A5606B6C3EE26A4B8F /* Pods */,
 				00D311A6F6B4A6F35446CB3C /* Frameworks */,
@@ -120,6 +187,7 @@
 				8A3889182995CD52001C9AF7 /* Memo.app */,
 				8A3889282995CD54001C9AF7 /* MemoTests.xctest */,
 				8A3889322995CD54001C9AF7 /* MemoUITests.xctest */,
+				8A23CC4B29C43FE000481B45 /* memoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +195,7 @@
 		8A38891A2995CD52001C9AF7 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				8A0F6FAE29C8684B002664C9 /* Memo.entitlements */,
 				8ACCD14729B0E91800987587 /* Info.plist */,
 				8A38891B2995CD52001C9AF7 /* MemoApp.swift */,
 				8A38891D2995CD52001C9AF7 /* ContentView.swift */,
@@ -165,6 +234,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8A23CC4A29C43FE000481B45 /* memoWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A23CC6329C43FE200481B45 /* Build configuration list for PBXNativeTarget "memoWidgetExtension" */;
+			buildPhases = (
+				8A23CC4729C43FE000481B45 /* Sources */,
+				8A23CC4829C43FE000481B45 /* Frameworks */,
+				8A23CC4929C43FE000481B45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = memoWidgetExtension;
+			productName = memoWidgetExtension;
+			productReference = 8A23CC4B29C43FE000481B45 /* memoWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8A3889172995CD52001C9AF7 /* Memo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A38893C2995CD54001C9AF7 /* Build configuration list for PBXNativeTarget "Memo" */;
@@ -174,10 +260,12 @@
 				8A3889152995CD52001C9AF7 /* Frameworks */,
 				8A3889162995CD52001C9AF7 /* Resources */,
 				F605BCE9E8C766606409C663 /* [CP] Embed Pods Frameworks */,
+				8A23CC6029C43FE200481B45 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8A23CC5E29C43FE200481B45 /* PBXTargetDependency */,
 			);
 			name = Memo;
 			productName = Memo;
@@ -230,6 +318,9 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					8A23CC4A29C43FE000481B45 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					8A3889172995CD52001C9AF7 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -262,11 +353,20 @@
 				8A3889172995CD52001C9AF7 /* Memo */,
 				8A3889272995CD54001C9AF7 /* MemoTests */,
 				8A3889312995CD54001C9AF7 /* MemoUITests */,
+				8A23CC4A29C43FE000481B45 /* memoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8A23CC4929C43FE000481B45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A23CC5929C43FE200481B45 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A3889162995CD52001C9AF7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -336,12 +436,24 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8A23CC4729C43FE000481B45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A23CC5429C43FE000481B45 /* memoWidgetLiveActivity.swift in Sources */,
+				8A23CC5229C43FE000481B45 /* memoWidgetBundle.swift in Sources */,
+				8A23CC5B29C43FE200481B45 /* memoWidget.intentdefinition in Sources */,
+				8A23CC5629C43FE000481B45 /* memoWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A3889142995CD52001C9AF7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8AE16E8529BC1385000D9869 /* BBIn.swift in Sources */,
 				8A38891E2995CD52001C9AF7 /* ContentView.swift in Sources */,
+				8A23CC5C29C43FE200481B45 /* memoWidget.intentdefinition in Sources */,
 				8A38891C2995CD52001C9AF7 /* MemoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,6 +478,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8A23CC5E29C43FE200481B45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A23CC4A29C43FE000481B45 /* memoWidgetExtension */;
+			targetProxy = 8A23CC5D29C43FE200481B45 /* PBXContainerItemProxy */;
+		};
 		8A38892A2995CD54001C9AF7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8A3889172995CD52001C9AF7 /* Memo */;
@@ -393,6 +510,74 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8A23CC6129C43FE200481B45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = memoWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = memoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = memoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 10.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo.memoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.dynozer.memo.memoWidget;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8A23CC6229C43FE200481B45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = memoWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = memoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = memoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 10.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo.memoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.dynozer.memo.memoWidget;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		8A38893A2995CD54001C9AF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -513,12 +698,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D35FA38F43C477C719640BE0 /* Pods-Memo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Memo/Memo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Memo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
@@ -528,13 +715,14 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.0;
+				MARKETING_VERSION = 10.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -549,12 +737,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1110ACE065667D83B806BCFF /* Pods-Memo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Memo/Memo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Memo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VV97H9YLXQ;
@@ -564,13 +754,14 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.0;
+				MARKETING_VERSION = 10.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dynozer.memo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -588,6 +779,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
@@ -607,6 +799,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
@@ -625,6 +818,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Swift.MemoUITests;
@@ -642,6 +836,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Swift.MemoUITests;
@@ -656,6 +851,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A23CC6329C43FE200481B45 /* Build configuration list for PBXNativeTarget "memoWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A23CC6129C43FE200481B45 /* Debug */,
+				8A23CC6229C43FE200481B45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8A3889132995CD52001C9AF7 /* Build configuration list for PBXProject "Memo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
